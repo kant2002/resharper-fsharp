@@ -4,6 +4,7 @@ using JetBrains.ReSharper.Psi;
 using JetBrains.ReSharper.Psi.ExtensionsAPI.Tree;
 using JetBrains.ReSharper.Psi.Parsing;
 using JetBrains.ReSharper.Psi.Tree;
+using JetBrains.ReSharper.Resources.Shell;
 
 namespace JetBrains.ReSharper.Plugins.FSharp.Psi.Impl.Tree
 {
@@ -87,12 +88,21 @@ namespace JetBrains.ReSharper.Plugins.FSharp.Psi.Impl.Tree
 
     public static FSharpComment CreateLineComment(string text) =>
       new(FSharpTokenType.LINE_COMMENT, "//" + text);
+
+    public static DocComment CreateDocComment(string text) =>
+      new(FSharpTokenType.LINE_COMMENT, "///" + text);
   }
 
   public class DocComment : FSharpComment
   {
     public DocComment([NotNull] TokenNodeType nodeType, [NotNull] string text) : base(nodeType, text)
     {
+    }
+
+    public DocComment ReplaceBy(DocComment docCommentNode)
+    {
+      using var cookie = WriteLockCookie.Create(IsPhysical());
+      return ModificationUtil.ReplaceChild(this, docCommentNode);
     }
   }
 

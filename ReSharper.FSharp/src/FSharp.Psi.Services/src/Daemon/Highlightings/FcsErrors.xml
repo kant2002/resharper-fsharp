@@ -560,4 +560,15 @@
     <QuickFix>RemoveXmlDocFix</QuickFix>
   </Warning>
 
+  <Warning compilerGroup="FSharpErrors" name="InvalidXmlDocParam" ID="FS3390: XML comment is not placed on a valid language element">
+    <Parameter type="XmlDocBlock" name="xmlDocBlock"/>
+    <Parameter type="string" name="fcsMessage"/>
+    <Message value="{0}">
+      <Argument>fcsMessage</Argument>
+    </Message>
+    <Range>xmlDocBlock.GetHighlightingRange()</Range>
+    <Behavour overlapResolvePolicy="NONE"/>
+    <QuickFix>AddXmlDocParam</QuickFix>
+  </Warning>
+
 </Errors>

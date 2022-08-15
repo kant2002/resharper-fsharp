@@ -29,7 +29,7 @@ namespace JetBrains.ReSharper.Plugins.FSharp.Psi.Util
       return text.ToString();
     }
 
-    private static IEnumerable<string> GetParameters(ITreeNode declaration) =>
+    public static IEnumerable<string> GetParameters(ITreeNode declaration) =>
       declaration switch
       {
         IBinding binding => binding.Expression is ILambdaExpr lambda

@@ -9,6 +9,7 @@ open JetBrains.ReSharper.Plugins.FSharp.Psi
 open JetBrains.ReSharper.Plugins.FSharp.Psi.Features.Daemon.Highlightings
 open JetBrains.ReSharper.Plugins.FSharp.Psi.Features.Daemon.Stages
 open JetBrains.ReSharper.Plugins.FSharp.Psi.Features.Util
+open JetBrains.ReSharper.Plugins.FSharp.Psi.Impl.Tree
 open JetBrains.ReSharper.Plugins.FSharp.Util
 open JetBrains.ReSharper.Plugins.FSharp.Psi.Tree
 open JetBrains.ReSharper.Plugins.FSharp.Psi.Impl
@@ -454,6 +455,10 @@ type FcsErrorsStageProcessBase(fsFile, daemonProcess) =
 
             let expr = fsFile.GetNode<IDoLikeStatement>(range)
             if isNotNull expr then NamespaceCannotContainExpressionsError(expr) :> _ else null
+
+        | 3390 ->
+            let xmlDocBlock = fsFile.GetNode<XmlDocBlock>(range)
+            if isNotNull xmlDocBlock then InvalidXmlDocParamWarning(xmlDocBlock, error.Message) :> _ else null
 
         | _ -> createGenericHighlighting error range
 

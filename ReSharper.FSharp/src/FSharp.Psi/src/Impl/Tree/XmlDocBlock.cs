@@ -8,6 +8,7 @@ using JetBrains.ReSharper.Psi.Tree;
 using JetBrains.ReSharper.Psi.Xml.XmlDocComments;
 using JetBrains.ReSharper.Resources.Shell;
 using JetBrains.Util;
+using JetBrains.Util.Text;
 
 namespace JetBrains.ReSharper.Plugins.FSharp.Psi.Impl.Tree
 {
@@ -43,13 +44,25 @@ namespace JetBrains.ReSharper.Plugins.FSharp.Psi.Impl.Tree
       }
     }
 
+
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="nodeToAdd"></param>
+    /// <param name="anchor"></param>
+    /// <returns></returns>
     public DocComment AddDocCommentBefore(DocComment nodeToAdd, DocComment anchor)
     {
       using var cookie = WriteLockCookie.Create(IsPhysical());
       if (anchor != null)
         return ModificationUtil.AddChildBefore(anchor, nodeToAdd);
       if (DocComments.Count > 0)
-        return ModificationUtil.AddChildAfter(DocComments.Last(), nodeToAdd);
+      {
+        var fsFile = this.GetContainingFile();
+        var lineEnding = fsFile.DetectLineEnding(fsFile.GetPsiServices()).GetPresentation();
+        var newLine = ModificationUtil.AddChildAfter(DocComments.Last(), new NewLine(lineEnding));
+        return ModificationUtil.AddChildAfter(newLine, nodeToAdd);
+      }
 
       return ModificationUtil.AddChild(this, nodeToAdd);
     }

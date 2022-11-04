@@ -14,11 +14,11 @@
     </ItemGroup>
 
     <ItemGroup>
-        <PackageReference Include="System.Collections" Version="4.3.0"/>
-        <PackageReference Include="System.Diagnostics.Debug" Version="4.3.0"/>
-        <PackageReference Include="System.IO.FileSystem" Version="4.3.0"/>
-        <PackageReference Include="Microsoft.NETCore.Platforms" Version="5.0.0"/>
-        <PackageReference Include="Microsoft.NETCore.Targets" Version="1.1.0"/>
+        <PackageReference Include="System.Collections" Version="4.3.0" />
+        <PackageReference Include="System.Diagnostics.Debug" Version="4.3.0" />
+        <PackageReference Include="System.IO.FileSystem" Version="4.3.0" />
+        <PackageReference Include="Microsoft.NETCore.Platforms" Version="5.0.0" />
+        <PackageReference Include="Microsoft.NETCore.Targets" Version="1.1.0" />
     </ItemGroup>
 
     <ItemGroup>
@@ -28,26 +28,8 @@
         <None Update="tploader.netcoreapp31.unix.runtimeconfig.json">
             <CopyToOutputDirectory>Always</CopyToOutputDirectory>
         </None>
-        <None Update="tploader.net5.unix.runtimeconfig.json">
-            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-        </None>
-        <None Update="tploader.net5.win.runtimeconfig.json">
-            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-        </None>
-        <None Update="tploader.net6.unix.runtimeconfig.json">
-            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-        </None>
-        <None Update="tploader.net6.win.runtimeconfig.json">
-            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-        </None>
-        <None Update="tploader.net7.win.runtimeconfig.json">
-            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-        </None>
-        <None Update="tploader.net7.unix.runtimeconfig.json">
-            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-        </None>
     </ItemGroup>
 
-    <Import Project="$(SolutionDir)/TypeProviders.Host.targets"/>
-    <Import Project="$(SolutionDir)/GitHubActions.targets" Condition="$(RunningOnGitHubActions) == 'true'"/>
+    <Import Project="$(SolutionDir)/TypeProviders.Host.targets" />
+    <Import Project="$(SolutionDir)/GitHubActions.targets" Condition="$(RunningOnGitHubActions) == 'true'" />
 </Project>
